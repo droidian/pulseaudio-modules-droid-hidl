@@ -15,7 +15,11 @@ BUILD_ON = [
 # Extra Debian repositories to add. These can be used to pull packages
 # from other feature branches.
 # Note that builds with EXTRA_REPOS won't start on production or staging.
-EXTRA_REPOS = []
+EXTRA_REPOS = [
+	"deb http://droidian-pulseaudio.repo.droidian.org/bookworm-upgrade-14-2/ bookworm main",
+	"deb http://droidian-pulseaudio-modules-droid.repo.droidian.org/bookworm-upgrade-14-2-93/ bookworm main",
+	"deb http://droidian-audiosystem-passthrough.repo.droidian.org/bookworm-upgrade-1-2-1/ bookworm main",
+]
 
 # Host architecture. This can be used to instruct the buildd to
 # assume the packages are built (host -> should be executed on) for the
