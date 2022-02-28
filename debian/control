@@ -1,12 +1,12 @@
 Source: pulseaudio-modules-droid-hidl
 Section: sound
 Priority: optional
-Maintainer: Danct12 <danct12@disroot.org>
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
+XSBC-Original-Maintainer: Danct12 <danct12@disroot.org>
 Build-Depends: debhelper (>= 7),
                dh-autoreconf,
                libdbus-1-dev,
                android-headers-28,
-               pulseaudio-modules-droid-dev,
                pulseaudio-pulsecore-dev,
                libpulse-dev,
                libltdl-dev,
@@ -16,6 +16,6 @@ Standards-Version: 3.8.4
 Package: pulseaudio-modules-droid-hidl
 Architecture: any
 Depends: pulseaudio,
-         pulseaudio-modules-droid,
+         pulseaudio-modules-droid-jb2q | pulseaudio-modules-droid-modern,
          ${shlibs:Depends}, ${misc:Depends}
 Description: HIDL module for PulseAudio
