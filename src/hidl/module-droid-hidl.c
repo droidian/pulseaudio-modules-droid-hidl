@@ -167,6 +167,18 @@ static void dbus_init(struct userdata *u) {
 static void dbus_done(struct userdata *u) {
     pa_assert(u);
 
+    /* pa__init() jumps to its fail: label, which unconditionally calls
+     * pa__done() -> dbus_done(), on several checks that run before
+     * dbus_init() (e.g. the DROID_HW_HANDLE shared-value lookup, which
+     * fails whenever module-droid-card did not load - this project's own
+     * case, and in general any device where the droid HAL open fails).
+     * u is pa_xnew0()'d, so u->dbus_protocol is still NULL in that case,
+     * and unregistering against a NULL protocol asserts inside
+     * pulseaudio core (protocol-dbus.c: Assertion 'p' failed ... Aborting),
+     * taking the whole daemon down instead of just failing this module. */
+    if (!u->dbus_protocol)
+        return;
+
     pa_dbus_protocol_unregister_extension(u->dbus_protocol, AUDIOSYSTEM_PASSTHROUGH_IFACE);
     pa_dbus_protocol_remove_interface(u->dbus_protocol, AUDIOSYSTEM_PASSTHROUGH_PATH, passthrough_info.name);
     pa_dbus_protocol_unref(u->dbus_protocol);
