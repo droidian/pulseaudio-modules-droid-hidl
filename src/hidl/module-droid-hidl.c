@@ -58,7 +58,7 @@
 
 PA_MODULE_AUTHOR("Juho Hämäläinen");
 PA_MODULE_DESCRIPTION("Droid AudioSystem passthrough");
-PA_MODULE_VERSION(PACKAGE_VERSION);
+PA_MODULE_VERSION(PULSEAUDIO_VERSION);
 PA_MODULE_USAGE(
         "module_id=<unused> "
         "helper=<spawn helper binary, default true>"

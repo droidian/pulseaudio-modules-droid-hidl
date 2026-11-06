@@ -15,6 +15,10 @@ if type -p stow > /dev/null && test -d /usr/local/stow ; then
    ac_default_prefix="/usr/local/stow/${PACKAGE_NAME}-${PACKAGE_VERSION}"
 fi
 
+m4_define(pa_major, `pkg-config --modversion libpulse | cut -d. -f1 | cut -d- -f1`)
+m4_define(pa_minor, `pkg-config --modversion libpulse | cut -d. -f2 | cut -d- -f1`)
+AC_SUBST(PA_MAJORMINOR, pa_major.pa_minor)
+
 AC_PROG_CC
 AC_PROG_CC_C99
 AM_PROG_CC_C_O
@@ -179,8 +183,8 @@ AC_SUBST(PASSTHROUGH_COMMON_LIBS)
 
 AC_ARG_WITH(
         [module-dir],
-        AS_HELP_STRING([--with-module-dir],[Directory where to install the module to (mandatory).]),
-        [modlibexecdir=$withval], [modlibexecdir=""]
+        AS_HELP_STRING([--with-module-dir],[Directory where to install the modules to (defaults to ${libdir}/pulse-${PA_MAJORMINOR}/modules]),
+        [modlibexecdir=$withval], [modlibexecdir="${libdir}/pulse-${PA_MAJORMINOR}/modules"]
 )
 
 AS_IF([test "x$modlibexecdir" = "x"],
